@@ -7,18 +7,18 @@
             </h1>
 
             <div class="list-menu">
-                <a class="list-menu-item">
-                    <p>L1</p>
-                </a>
-                <a class="list-menu-item">
-                    <p>L1</p>
-                </a>
-                <a class="list-menu-item">
-                    <p>L1</p>
-                </a>
+                @for (list of lists; track lists._id) {
+                    <a class="list-menu-item" [routerLink]="['/lists',list._id]" routerLinkActive="is-active">
+                        <p>{{list.title}}</p>
+                    </a>
+                  } @empty {
+                    <a class="list-menu-item">
+                        <p>No Task Added</p>
+                    </a>
+                  }
             </div>
 
-            <button class="button is-primary has-text-white" (click)="createNewList()">+ New List</button>
+            <button class="button is-primary has-text-white" routerLink="/new-list">+ New List</button>
         </div>
 
 
@@ -29,15 +29,15 @@
                     Tasks
                 </h1>
             </div>
-            <div class="task">
-                <p>todo</p>
-            </div>
-            <div class="task">
-                <p  class="task-text">todo</p>
-            </div>
-            <div class="task completed complete">
-                <p class="task-text">todo</p>
-            </div>
+            @for (task of tasks; track tasks._id) {
+                <div class="task">
+                    <p>{{task.title}}</p>
+                </div>
+              } @empty {
+                <div class="task">
+                    <p>No task Added</p>
+                </div>
+              }
         </div>
 
     </div>
