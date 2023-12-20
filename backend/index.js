@@ -3,7 +3,9 @@ const bodyPaser=require('body-parser');
 const app = express();
 const {mongoose}=require('./db/mongoose')
 const { Task, List } = require('./db/models/index');
+var cors = require('cors');
 
+app.use(cors())
 
 app.use(bodyPaser.json());
 
@@ -89,6 +91,19 @@ app.delete('/lists/:listId/tasks/:taskId', (req, res) => {
     })
         
 });
+
+app.get('/lists/:listId/tasks/:taskId', (req, res) => {
+    // We want to update an existing task (specified by taskId)
+    Task.findOne({
+        _id: req.params.taskId,
+        _listId: req.params.listId
+    }
+    ).then((task) => {
+        res.send(task)
+    })
+        
+});
+
 
 app.listen(3000, () => {
     console.log("The server is up and running at port 3000")
