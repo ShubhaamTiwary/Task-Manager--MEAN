@@ -30,8 +30,8 @@
                 </h1>
             </div>
             @for (task of tasks; track tasks._id) {
-                <div class="task">
-                    <p>{{task.title}}</p>
+                <div class="task" (click)="onTaskClick(task)"[ngClass]="{completed : task.completed}" >
+                    <p class="task-text">{{task.title}}</p>
                 </div>
               } @empty {
               }

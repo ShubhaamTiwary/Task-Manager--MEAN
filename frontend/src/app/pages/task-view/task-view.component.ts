@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../task.service';
 import { ActivatedRoute, Params, RouterLink, RouterLinkActive } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-task-view',
   standalone: true,
-  imports: [RouterLink, CommonModule, RouterLinkActive],
+  imports: [RouterLink, CommonModule, RouterLinkActive, NgClass],
   templateUrl: './task-view.component.html',
   styleUrl: './task-view.component.scss'
 })
 export class TaskViewComponent implements OnInit {
-  lists: any=[]
-  tasks: any=[]
+  lists: any = []
+  tasks: any = []
   constructor(private TaskService: TaskService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -20,8 +20,8 @@ export class TaskViewComponent implements OnInit {
       (params: Params) => {
         // console.log(params)
         if (Object.keys(params).length > 0) {
-          this.TaskService.getTasks(params['listId']).subscribe((tasks)=>{
-            this.tasks=tasks;
+          this.TaskService.getTasks(params['listId']).subscribe((tasks) => {
+            this.tasks = tasks;
           })
         }
       }
@@ -29,6 +29,14 @@ export class TaskViewComponent implements OnInit {
     this.TaskService.getLists().subscribe((lists) => {
       this.lists = lists
       // console.log(this.lists);
+    });
+  }
+
+  onTaskClick(task: any) {
+    // console.log('Clicked!!');
+    this.TaskService.completeTask(task).subscribe(() => {
+      // console.log('Completed !!');
+      task.completed = !task.completed;
     });
   }
 }
