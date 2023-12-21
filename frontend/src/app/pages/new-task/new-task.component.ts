@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../task.service';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-new-task',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './new-task.component.html',
   styleUrl: './new-task.component.scss'
 })
