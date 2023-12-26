@@ -1,9 +1,10 @@
 const { List } = require('./listModel');
 const { Task } = require('./taskModel');
-// const { User } = require('./user.model');
+const { User } = require('./userModel');
 
 
 module.exports = {
     List,
-    Task
+    Task,
+    User
 }
