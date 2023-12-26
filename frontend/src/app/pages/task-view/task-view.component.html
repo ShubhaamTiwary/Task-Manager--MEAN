@@ -8,14 +8,14 @@
 
             <div class="list-menu">
                 @for (list of lists; track lists._id) {
-                    <a class="list-menu-item" [routerLink]="['/lists',list._id]" routerLinkActive="is-active">
-                        <p>{{list.title}}</p>
-                    </a>
-                  } @empty {
-                    <a class="list-menu-item">
-                        <p>No Task Added</p>
-                    </a>
-                  }
+                <a class="list-menu-item" [routerLink]="['/lists',list._id]" routerLinkActive="is-active">
+                    <p>{{list.title}}</p>
+                </a>
+                } @empty {
+                <a class="list-menu-item">
+                    <p>No Task Added</p>
+                </a>
+                }
             </div>
 
             <button class="button is-primary has-text-white" routerLink="/new-list">+ New List</button>
@@ -24,21 +24,27 @@
 
 
         <div class="task-list-container has-background-light">
-            <div class="top-bar">
-                <h1 class="title has-text-primary">
-                    Tasks
-                </h1>
-            </div>
-            @for (task of tasks; track tasks._id) {
-                <div class="task" (click)="onTaskClick(task)"[ngClass]="{completed : task.completed}" >
+            <div *ngIf="tasks">
+                <div class="top-bar">
+                    <h1 class="title has-text-primary">
+                        Tasks
+                    </h1>
+                </div>
+                @for (task of tasks; track tasks._id) {
+                <div class="task" (click)="onTaskClick(task)" [ngClass]="{completed : task.completed}">
                     <p class="task-text">{{task.title}}</p>
                 </div>
-              } @empty {
-              }
+                } @empty {
+                }
+                <h3 *ngIf="tasks?.length==0" class="empty-state-text">There are no tasks in this list! <br> Click the add button to create one.</h3>
+                <button class="button circle-add-button is-primary has-text-white" routerLink="./new-task">
+                    <img src="../../../assets/plus-icon.svg">
+                </button>
+            </div>
+            <div *ngIf="!tasks">
+                <h3 class="empty-state-text">Please Select a list from the sidebar</h3>
+            </div>
 
-            <button class="button circle-add-button is-primary has-text-white" routerLink="./new-task">
-                <img src="../../../assets/plus-icon.svg">
-            </button>
         </div>
 
     </div>

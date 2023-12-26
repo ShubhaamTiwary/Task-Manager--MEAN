@@ -24,6 +24,9 @@ export class TaskViewComponent implements OnInit {
             this.tasks = tasks;
           })
         }
+        else{
+          this.tasks=undefined;
+        }
       }
     )
     this.TaskService.getLists().subscribe((lists) => {
