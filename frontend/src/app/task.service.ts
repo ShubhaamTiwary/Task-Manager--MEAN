@@ -23,6 +23,10 @@ export class TaskService {
   deleteList(id:string){
     return this.WebReqService.delete(`lists/${id}`);
   }
+  
+  deleteTask(listId:string,taskId:string){
+    return this.WebReqService.delete(`lists/${listId}/tasks/${taskId}`);
+  }
 
   getTasks(listId:string){
     return this.WebReqService.get(`lists/${listId}/tasks`);
@@ -37,4 +41,6 @@ export class TaskService {
       completed:!task.completed
     })
   }
+
+  
 }

@@ -53,7 +53,21 @@
 
                 @for (task of tasks; track tasks._id) {
                 <div class="task" (click)="onTaskClick(task)" [ngClass]="{completed : task.completed}">
-                    <p class="task-text">{{task.title}}</p>
+                    <div class="task-text">
+                        <p class="task-text">{{task.title}}</p>
+                        <div class="task-buttons">
+                            <button class="button is-small">
+                                <div class="icon">
+                                    <i class="fas fa-edit"></i>
+                                </div>
+                            </button>
+                            <button class="button is-small is-danger" (click)="onTaskDeleteClick(task._id)" style="margin-left: 10px;">
+                                <div class="icon">
+                                    <i class="fas fa-trash"></i>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 } @empty {
                 }
