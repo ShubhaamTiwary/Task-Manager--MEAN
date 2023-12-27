@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../task.service';
 import { ActivatedRoute, Params, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule, NgClass } from '@angular/common';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-task-view',
@@ -14,7 +15,7 @@ export class TaskViewComponent implements OnInit {
   lists: any = []
   tasks: any = []
   selectedListId:string=''
-  constructor(private TaskService: TaskService, private route: ActivatedRoute,private router:Router) { }
+  constructor(private TaskService: TaskService, private route: ActivatedRoute,private router:Router,private auth:AuthService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(
@@ -60,5 +61,9 @@ export class TaskViewComponent implements OnInit {
       console.log('Delete Called on Task',res);
       // this.router.navigateByUrl('/lists');
      })
+  }
+
+  logout(){
+    this.auth.logout();
   }
 }

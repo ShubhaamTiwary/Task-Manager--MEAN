@@ -16,6 +16,10 @@ export class TaskService {
     return this.WebReqService.patch(`lists/${id}`,{title});
   }
 
+  updateTask(listId:string,taskId:string,title:string){
+    return this.WebReqService.patch(`lists/${listId}/tasks/${taskId}`,{title});
+  }
+  
   getLists(){
     return this.WebReqService.get('lists');
   }

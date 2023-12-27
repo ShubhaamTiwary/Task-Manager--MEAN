@@ -1,6 +1,8 @@
+<div style="display: flex;width: 100%;justify-content: end;flex-direction: row;">
+    <button class="button is-danger has-text-white" (click)="logout()">Logout</button>
+</div>
 <div class="centered-content">
     <div class="task-manager-container">
-
         <div class="sidebar has-background-white">
             <h1 class="title has-text-primary">
                 Lists
@@ -56,7 +58,7 @@
                     <div class="task-text">
                         <p class="task-text">{{task.title}}</p>
                         <div class="task-buttons">
-                            <button class="button is-small">
+                            <button class="button is-small" [routerLink]="['/lists',selectedListId,'edit-task',task._id]">
                                 <div class="icon">
                                     <i class="fas fa-edit"></i>
                                 </div>
@@ -82,6 +84,5 @@
             </div>
 
         </div>
-
     </div>
 </div>
