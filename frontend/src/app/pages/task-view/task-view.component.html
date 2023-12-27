@@ -29,14 +29,36 @@
                     <h1 class="title has-text-primary">
                         Tasks
                     </h1>
+                    <div class="dropdown is-hoverable is-right">
+                        <div class="dropdown-trigger">
+                            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+                                <span class="icon is-small">
+                                    <i class="fas fa-cog" aria-hidden="true"></i>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+                            <div class="dropdown-content">
+                                <a [routerLink]="['/edit-list',selectedListId]" class="dropdown-item">
+                                    Edit
+                                </a>
+                                <a (click)="onDeleteListClick()" class="dropdown-item has-text-danger">
+                                    Delete
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+
                 @for (task of tasks; track tasks._id) {
                 <div class="task" (click)="onTaskClick(task)" [ngClass]="{completed : task.completed}">
                     <p class="task-text">{{task.title}}</p>
                 </div>
                 } @empty {
                 }
-                <h3 *ngIf="tasks?.length==0" class="empty-state-text">There are no tasks in this list! <br> Click the add button to create one.</h3>
+                <h3 *ngIf="tasks?.length==0" class="empty-state-text">There are no tasks in this list! <br> Click the
+                    add button to create one.</h3>
                 <button class="button circle-add-button is-primary has-text-white" routerLink="./new-task">
                     <img src="../../../assets/plus-icon.svg">
                 </button>
