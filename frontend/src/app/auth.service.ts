@@ -9,7 +9,7 @@ import { shareReplay,tap } from 'rxjs';
 })
 export class AuthService {
 
-  constructor(private WebReqService:WebRequestService,private router:Router) {}
+  constructor(private WebReqService:WebRequestService,private router:Router,private http:HttpClient) {}
 
   login(email:string,password:string){
     return this.WebReqService.login(email,password).pipe(
@@ -24,29 +24,52 @@ export class AuthService {
 
   logout(){
     this.removeSession();
+
+    this.router.navigateByUrl('/login');
   }
 
   private setSession(userId:string,accessToken:any,refreshToken:any){
     localStorage.setItem('user-id',userId);
-    localStorage.setItem('access-token',accessToken);
-    localStorage.setItem('refresh-token',refreshToken);
+    localStorage.setItem('x-access-token',accessToken);
+    localStorage.setItem('x-refresh-token',refreshToken);
   }
 
   private removeSession(){
     localStorage.removeItem('user-id');
-    localStorage.removeItem('access-token');
-    localStorage.removeItem('refresh-token');
+    localStorage.removeItem('x-access-token');
+    localStorage.removeItem('x-refresh-token');
   }
 
   getAccessToken(){
     return localStorage.getItem('x-access-token');
   }
 
-  setAccessToken(accessToken:string){
+  setAccessToken(accessToken:any){
     return localStorage.setItem('x-access-token',accessToken);
   }
 
-  getRefreshToken(){
+  getRefreshToken():any{
     return localStorage.getItem('x-refresh-token');
   }
+
+  getUserId():any{
+    return localStorage.getItem('user-id');
+  }
+
+  getNewAccessToken(){
+    return this.http.get(`${this.WebReqService.Root_Url}/users/me/access-token`,{
+      headers:{
+        'x-refresh-token':this.getRefreshToken(),
+        '_id':this.getUserId()
+      },
+      observe: 'response'
+    }).pipe(
+      tap((res: HttpResponse<any>) => {
+        this.setAccessToken(res.headers.get('x-access-token'));
+      })
+    )
+  }
 }
+
+// 'x-refresh-token':this.getRefreshToken(),
+//         "_id": 1

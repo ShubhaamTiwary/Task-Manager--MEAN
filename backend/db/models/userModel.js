@@ -49,7 +49,7 @@ UserSchema.methods.generateAccessAuthToken = function () {
     const user = this;
     return new Promise((resolve, reject) => {
         // Create the JSON Web Token and return that
-        jwt.sign({ _id: user._id.toHexString() }, jwtSecret, { expiresIn: "15m" }, (err, token) => {
+        jwt.sign({ _id: user._id.toHexString() }, jwtSecret, { expiresIn: "5s" }, (err, token) => {
             if (!err) {
                 resolve(token);
             } else {
@@ -185,6 +185,9 @@ let saveSessionToDatabase = (user, refreshToken) => {
 let generateRefreshTokenExpiryTime = () => {
     let daysUntilExpire = "10";
     let secondsUntilExpire = ((daysUntilExpire * 24) * 60) * 60;
+
+    // let secondsUntilExpire = 15;
+
     return ((Date.now() / 1000) + secondsUntilExpire);
 }
 
